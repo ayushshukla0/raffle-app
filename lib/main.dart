@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() => runApp(MyApp());
+import 'screens/login.dart';
+import 'screens/createaccount.dart';
+import 'screens/host.dart';
+import 'screens/browse.dart';
+import 'screens/home.dart';
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Welcome to Flutter',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Welcome to Flutter'),
-        ),
-        body: const Center(
-          child: const Text('Hello World'),
-        ),
-      ),
-    );
-  }
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MaterialApp(initialRoute: '/login', routes: {
+    '/login': (context) => LoginForm(),
+    '/createAccount': (context) => CreateAccountForm(),
+    '/browse': (context) => Browse(),
+    '/host': (context) => Host(),
+    '/home': (context) => Home()
+  }));
 }
