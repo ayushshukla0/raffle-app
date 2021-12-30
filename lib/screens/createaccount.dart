@@ -42,7 +42,8 @@ class CreateAccount extends State<CreateAccountForm> {
               int result = await _auth.createAccount(
                   emailController.text, passwordController.text);
               if (result == 0) {
-                Navigator.pushNamed(context, '/home');
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/home', (_) => false);
               } else if (result == 1) {
                 showDialog<String>(
                     context: context,
